@@ -1,0 +1,83 @@
+# ==========================================
+# Operating System Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ==========================================
+# .NET Build Outputs & Intermediate Files
+# ==========================================
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Test results and coverage
+[Tt]est[Rr]esults/
+coveragereport/
+**/coveragereport/
+*.trx
+*.coverage
+*.coveragexml
+
+# ==========================================
+# Visual Studio / VS Code / JetBrains Rider
+# ==========================================
+.vs/
+.idea/
+*.user
+*.userosv
+*.suo
+*.userprefs
+*.sln.docstates
+
+# VS Code (ignore workspace state, keep recommendations if needed)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ==========================================
+# Obfuscar Artifacts & Mapping Files
+# ==========================================
+# Obfuscar generates mapping files and obfuscated assemblies
+Mapping.txt
+**/Mapping.txt
+[Oo]bfuscated/
+**/[Oo]bfuscated/
+[Oo]bfuscar/
+**/[Oo]bfuscar/
+
+# ==========================================
+# SBOM / CycloneDX / SPDX Outputs
+# ==========================================
+bom.json
+bom.xml
+*cyclonedx*.json
+*cyclonedx*.xml
+spdx_output/
+**/spdx_output/
+
+# ==========================================
+# Secrets, Certificates & Local Configuration
+# ==========================================
+*.pfx
+*.p12
+*.pem
+*.key
+*.cer
+*.crt
+.env
+.env.*
+!.env.example
+
+# Local configuration overrides
+appsettings.Local.json
+appsettings.*.local.json
+appsettings.Development.json

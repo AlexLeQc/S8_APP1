@@ -1,0 +1,11 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+    <BuildType Name="AOT" />
+  </Configurations>
+  <Project Path="Obfuscation.Tests/Obfuscation.Tests.csproj">
+    <BuildType Solution="AOT|*" Project="Debug" />
+  </Project>
+  <Project Path="Obfuscation/Obfuscation.csproj" />
+</Solution>

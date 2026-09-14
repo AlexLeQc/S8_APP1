@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="CoupDeSonde.Api/CoupDeSonde.Api.csproj" />
+  <Project Path="CoupDeSonde.Core/CoupDeSonde.Core.csproj" />
+  <Project Path="CoupDeSonde.Tests/CoupDeSonde.Tests.csproj" />
+</Solution>
