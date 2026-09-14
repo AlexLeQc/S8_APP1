@@ -32,11 +32,6 @@ public sealed class ApiKeyAuthenticationFilter : IAsyncActionFilter
     private readonly ApiKeyOptions _options;
     private readonly ILogger<ApiKeyAuthenticationFilter> _logger;
 
-    private static readonly JsonSerializerOptions _jsonOptions = new()
-    {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-    };
-
     /// <summary>
     /// Initializes a new instance of <see cref="ApiKeyAuthenticationFilter"/>.
     /// </summary>
