@@ -1,0 +1,92 @@
+{
+  "id": "survey-lecture-journaux-2026",
+  "title": "Habitudes de lecture des journaux",
+  "version": "1.0",
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "\u00C0 quelle tranche d\u0027\u00E2ge appartenez-vous ?",
+      "choices": [
+        {
+          "id": 1,
+          "text": "0-25 ans"
+        },
+        {
+          "id": 2,
+          "text": "25-50 ans"
+        },
+        {
+          "id": 3,
+          "text": "50-75 ans"
+        },
+        {
+          "id": 4,
+          "text": "75 ans et plus"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "\u00CAtes-vous une femme ou un homme ?",
+      "choices": [
+        {
+          "id": 1,
+          "text": "Femme"
+        },
+        {
+          "id": 2,
+          "text": "Homme"
+        },
+        {
+          "id": 3,
+          "text": "Je ne veux pas r\u00E9pondre"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Quel journal lisez-vous \u00E0 la maison ?",
+      "choices": [
+        {
+          "id": 1,
+          "text": "La Presse"
+        },
+        {
+          "id": 2,
+          "text": "Le Journal de Montr\u00E9al"
+        },
+        {
+          "id": 3,
+          "text": "The Gazette"
+        },
+        {
+          "id": 4,
+          "text": "Le Devoir"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Combien de temps accordez-vous \u00E0 la lecture de votre journal quotidiennement ?",
+      "choices": [
+        {
+          "id": 1,
+          "text": "Moins de 10 minutes"
+        },
+        {
+          "id": 2,
+          "text": "Entre 10 et 30 minutes"
+        },
+        {
+          "id": 3,
+          "text": "Entre 30 et 60 minutes"
+        },
+        {
+          "id": 4,
+          "text": "60 minutes ou plus"
+        }
+      ]
+    }
+  ],
+  "isActive": true
+}

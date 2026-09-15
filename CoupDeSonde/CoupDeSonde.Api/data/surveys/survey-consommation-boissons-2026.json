@@ -1,0 +1,47 @@
+{
+  "id": "survey-consommation-boissons-2026",
+  "title": "Habitudes de consommation de café et d'alcool",
+  "version": "1.0",
+  "isActive": true,
+  "questions": [
+    {
+      "id": 1,
+      "prompt": "À quelle tranche d'âge appartenez-vous ?",
+      "choices": [
+        { "id": 1, "text": "0-25 ans" },
+        { "id": 2, "text": "25-50 ans" },
+        { "id": 3, "text": "50-75 ans" },
+        { "id": 4, "text": "75 ans et +" }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Êtes-vous une femme ou un homme ?",
+      "choices": [
+        { "id": 1, "text": "Femme" },
+        { "id": 2, "text": "Homme" },
+        { "id": 3, "text": "Je ne veux pas répondre" }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Combien de tasses de café buvez-vous chaque jour ?",
+      "choices": [
+        { "id": 1, "text": "Je ne bois pas de café" },
+        { "id": 2, "text": "Entre 1 et 5 tasses" },
+        { "id": 3, "text": "Entre 6 et 10 tasses" },
+        { "id": 4, "text": "10 tasses ou plus" }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Combien de consommations alcoolisées buvez-vous chaque jour ?",
+      "choices": [
+        { "id": 1, "text": "0" },
+        { "id": 2, "text": "1" },
+        { "id": 3, "text": "2 ou 3" },
+        { "id": 4, "text": "3 ou plus" }
+      ]
+    }
+  ]
+}

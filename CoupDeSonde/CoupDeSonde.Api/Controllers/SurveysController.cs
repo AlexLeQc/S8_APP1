@@ -163,7 +163,7 @@ public sealed class SurveysController : ControllerBase
 
         return CreatedAtAction(
             nameof(GetSurveyByIdAsync),
-            new { id = survey.Id },
+            new { version = "1", id = survey.Id },
             survey);
     }
 }

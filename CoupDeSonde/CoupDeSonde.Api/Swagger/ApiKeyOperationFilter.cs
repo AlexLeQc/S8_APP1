@@ -51,18 +51,15 @@ public sealed class ApiKeyOperationFilter : IOperationFilter
             });
         }
 
-        // Use OpenApiSecuritySchemeReference (Microsoft.OpenApi 2.x API — OpenApiReference was removed).
-        // This references the globally-defined "ApiKey" scheme registered via AddSecurityDefinition.
-        var securitySchemeReference = new OpenApiSecuritySchemeReference("ApiKey");
+        // Use OpenApiSecuritySchemeReference with the host document so the reference resolves
+        // to the "ApiKey" scheme registered via AddSecurityDefinition in Program.cs.
+        var securitySchemeReference = new OpenApiSecuritySchemeReference("ApiKey", context.Document);
 
         // Add the security requirement to this specific operation.
-        // OpenApiSecurityRequirement values are List<string> in Microsoft.OpenApi 2.x.
-        if (operation.Security is not null)
+        operation.Security ??= new List<OpenApiSecurityRequirement>();
+        operation.Security.Add(new OpenApiSecurityRequirement
         {
-            operation.Security.Add(new OpenApiSecurityRequirement
-            {
-                [securitySchemeReference] = new List<string>(),
-            });
-        }
+            [securitySchemeReference] = new List<string>(),
+        });
     }
 }

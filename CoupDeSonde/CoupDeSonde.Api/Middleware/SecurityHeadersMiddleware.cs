@@ -23,10 +23,15 @@ public sealed class SecurityHeadersMiddleware
 {
     private readonly RequestDelegate _next;
 
-    // Strict Content-Security-Policy for a pure JSON REST API endpoint:
+    // Strict Content-Security-Policy for pure JSON REST API endpoints:
     // No scripts, images, stylesheets, fonts, frames, or connections to external origins.
-    private const string ContentSecurityPolicy =
+    private const string ApiContentSecurityPolicy =
         "default-src 'none'; frame-ancestors 'none'; form-action 'none'";
+
+    // Permissive Content-Security-Policy for Swagger UI developer documentation:
+    // Allows Swagger UI to load its bundled scripts, stylesheets, and fetch OpenAPI definitions.
+    private const string SwaggerContentSecurityPolicy =
+        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'";
 
     // HSTS: enforce HTTPS for 1 year, covering all subdomains.
     // Deliverable #1 requirement (gei771.pdf).
@@ -63,8 +68,9 @@ public sealed class SecurityHeadersMiddleware
             // Prevent clickjacking via iframe embedding.
             headers["X-Frame-Options"] = "DENY";
 
-            // Full CSP — deny all resource loading for this pure JSON API.
-            headers["Content-Security-Policy"] = ContentSecurityPolicy;
+            // CSP — allow scripts/styles for Swagger UI, but deny all resource loading for pure API routes.
+            bool isSwagger = context.Request.Path.StartsWithSegments("/swagger");
+            headers["Content-Security-Policy"] = isSwagger ? SwaggerContentSecurityPolicy : ApiContentSecurityPolicy;
 
             // HSTS — enforce HTTPS for 1 year on all subdomains.
             headers["Strict-Transport-Security"] = StrictTransportSecurity;

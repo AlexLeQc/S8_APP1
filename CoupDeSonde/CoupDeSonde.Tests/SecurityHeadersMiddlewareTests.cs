@@ -63,4 +63,26 @@ public class SecurityHeadersMiddlewareTests
         
         Assert.False(headers.ContainsKey("Server"));
     }
+
+    [Fact]
+    public async Task InvokeAsync_OnSwaggerPath_InjectsSwaggerCsp()
+    {
+        // Arrange
+        var context = new DefaultHttpContext();
+        context.Request.Path = "/swagger/index.html";
+        var responseFeature = new TestHttpResponseFeature();
+        context.Features.Set<IHttpResponseFeature>(responseFeature);
+
+        var middleware = new SecurityHeadersMiddleware(ctx => Task.CompletedTask);
+
+        // Act
+        await middleware.InvokeAsync(context);
+        await responseFeature.InvokeStartingAsync();
+
+        // Assert
+        var headers = context.Response.Headers;
+        Assert.Equal(
+            "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'",
+            headers["Content-Security-Policy"]);
+    }
 }

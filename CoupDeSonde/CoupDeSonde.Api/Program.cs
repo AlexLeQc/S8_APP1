@@ -85,11 +85,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-// D. Enable Swagger UI
+// D. Enable Swagger UI (only in Development)
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoupDeSonde API v1");
+    c.RoutePrefix = "swagger";
 });
 
 // E. Routing & Controllers
