@@ -1,0 +1,13 @@
+# CoupDeSonde — Single-Use Ballot Tokens
+# Survey  : survey-lecture-journaux-2026
+# Generated: 2026-09-15T18:22:19.2370560+00:00
+# Count   : 5
+#
+# ⚠  CONFIDENTIAL — each token is single-use and must be sent to exactly one voter.
+#    Delete this file after distribution.
+
+f49265cecba05e49ddf031e80475729e928f6417eda4f3b8947baa4f6d82b6d8
+6b076a5b12b8eb37ecdb5da71bd589eca57386f03e3bd52ccacd9e4b5a1d234b
+39765271cf06924ef66e593c83dac806d206d31181ebf7f15a40457efcec5137
+a6b320961ac1298514db19763d4cad1f109db4cc802fca1454389e18d35717a9
+706cd39ee16947326037276da4fc086797e66a622b9aea93e765b8e8f69abd89

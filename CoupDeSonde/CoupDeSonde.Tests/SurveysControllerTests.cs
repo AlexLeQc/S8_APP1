@@ -22,7 +22,7 @@ public class SurveysControllerTests : IDisposable
     public SurveysControllerTests()
     {
         _tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-        
+
         var optionsMock = new Mock<IOptions<FileStorageOptions>>();
         optionsMock.Setup(o => o.Value).Returns(new FileStorageOptions { BaseDirectory = _tempDirectory });
 
@@ -59,7 +59,7 @@ public class SurveysControllerTests : IDisposable
         File.WriteAllText(Path.Combine(surveysDir, "s2.json"), "{}");
 
         var survey1 = new Survey { Id = "s1", Title = "Title1", Version = "1", IsActive = true, Questions = { new Question() } };
-        
+
         _surveyServiceMock.Setup(s => s.GetSurveyAsync("s1", It.IsAny<CancellationToken>())).ReturnsAsync(survey1);
         _surveyServiceMock.Setup(s => s.GetSurveyAsync("s2", It.IsAny<CancellationToken>())).ReturnsAsync((Survey?)null);
 
@@ -69,7 +69,7 @@ public class SurveysControllerTests : IDisposable
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
         var summaries = Assert.IsAssignableFrom<IEnumerable<SurveySummaryDto>>(okResult.Value).ToList();
-        
+
         Assert.Single(summaries); // "s2" returns null, so only 1 added
         Assert.Equal("s1", summaries[0].Id);
         Assert.Equal("Title1", summaries[0].Title);
@@ -120,48 +120,5 @@ public class SurveysControllerTests : IDisposable
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
         Assert.Same(survey, okResult.Value);
-    }
-
-    [Fact]
-    public async Task CreateSurveyAsync_CreatesAndReturns201()
-    {
-        // Arrange
-        var dto = new CreateSurveyRequestDto
-        {
-            Id = "s1",
-            Title = "Title",
-            Version = "1",
-            IsActive = true,
-            Questions = new List<CreateQuestionDto>
-            {
-                new CreateQuestionDto
-                {
-                    Id = 1,
-                    Prompt = "Q1",
-                    Choices = new List<CreateChoiceDto>
-                    {
-                        new CreateChoiceDto { Id = 1, Text = "C1" }
-                    }
-                }
-            }
-        };
-
-        _surveyServiceMock.Setup(s => s.SaveSurveyAsync(It.IsAny<Survey>(), It.IsAny<CancellationToken>()))
-            .Returns(Task.CompletedTask)
-            .Verifiable();
-
-        // Act
-        var result = await _controller.CreateSurveyAsync(dto, CancellationToken.None);
-
-        // Assert
-        _surveyServiceMock.Verify();
-        var createdResult = Assert.IsType<CreatedAtActionResult>(result);
-        Assert.Equal("GetSurveyByIdAsync", createdResult.ActionName);
-        Assert.Equal("s1", createdResult.RouteValues?["id"]);
-        
-        var returnedSurvey = Assert.IsType<Survey>(createdResult.Value);
-        Assert.Equal("s1", returnedSurvey.Id);
-        Assert.Single(returnedSurvey.Questions);
-        Assert.Single(returnedSurvey.Questions[0].Choices);
     }
 }

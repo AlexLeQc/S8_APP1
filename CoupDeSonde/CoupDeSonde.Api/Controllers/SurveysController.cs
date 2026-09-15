@@ -3,7 +3,6 @@
 using Asp.Versioning;
 
 using CoupDeSonde.Api.DTOs;
-using CoupDeSonde.Api.Filters;
 using CoupDeSonde.Core.Models;
 using CoupDeSonde.Core.Services;
 using CoupDeSonde.Core.Storage;
@@ -13,13 +12,14 @@ using Microsoft.Extensions.Options;
 namespace CoupDeSonde.Api.Controllers;
 
 /// <summary>
-/// Manages survey resources: listing, retrieval, and admin creation.
+/// Provides read-only access to survey resources.
 /// </summary>
 /// <remarks>
+/// Surveys are managed exclusively as JSON files on the server file system.
+/// Dynamic creation via API is disabled to reduce the attack surface.
 /// <list type="bullet">
 ///   <item><description><c>GET /api/v1/surveys</c> — public; returns a summary list of all surveys.</description></item>
 ///   <item><description><c>GET /api/v1/surveys/{id}</c> — public; returns full survey detail.</description></item>
-///   <item><description><c>POST /api/v1/surveys</c> — <b>admin only</b> (requires <c>X-Api-Key</c> header).</description></item>
 /// </list>
 /// </remarks>
 [ApiController]
@@ -121,49 +121,5 @@ public sealed class SurveysController : ControllerBase
         }
 
         return Ok(survey);
-    }
-
-    /// <summary>
-    /// Creates a new survey definition (admin-only, requires <c>X-Api-Key</c> header).
-    /// </summary>
-    /// <param name="dto">The survey creation payload.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>201 Created with a <c>Location</c> header pointing to the new resource.</returns>
-    [HttpPost]
-    [ApiKeyAuthorize]
-    [ProducesResponseType(typeof(Survey), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> CreateSurveyAsync(
-        [FromBody] CreateSurveyRequestDto dto,
-        CancellationToken cancellationToken)
-    {
-        // Map DTO → Domain Model
-        var survey = new Survey
-        {
-            Id = dto.Id,
-            Title = dto.Title,
-            Version = dto.Version,
-            IsActive = dto.IsActive,
-            Questions = dto.Questions.Select(q => new Question
-            {
-                Id = q.Id,
-                Prompt = q.Prompt,
-                Choices = q.Choices.Select(c => new Choice
-                {
-                    Id = c.Id,
-                    Text = c.Text,
-                }).ToList(),
-            }).ToList(),
-        };
-
-        await _surveyService.SaveSurveyAsync(survey, cancellationToken).ConfigureAwait(false);
-
-        _logger.LogInformation("Survey '{SurveyId}' created.", survey.Id);
-
-        return CreatedAtAction(
-            nameof(GetSurveyByIdAsync),
-            new { version = "1", id = survey.Id },
-            survey);
     }
 }
